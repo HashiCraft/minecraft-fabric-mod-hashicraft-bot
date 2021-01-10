@@ -1,16 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "hashicraft-bot",
   "version": "${version}",
 
-  "name": "Example Mod",
+  "name": "HashiCraft Bot",
   "description": "This is an example description! Tell everyone what your mod is about!",
   "authors": [
-    "Me!"
+    "Nic Jackson",
+    "ErikVeld"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://hashicraft.com",
+    "sources": "https://github.com/HashiCraft/minecraft-fabric-mod-hashicraft-bot"
   },
 
   "license": "CC0-1.0",

@@ -77,6 +77,8 @@ public class CommandMixin {
     conn.setRequestMethod("POST");
     conn.setRequestProperty( "Content-Type", "application/json" );
     conn.setRequestProperty( "Authorization", "bearer " + this.botAPIKey);
+    conn.setConnectTimeout(3000);
+    conn.setReadTimeout(30000);
     
     InputStream is = conn.getInputStream(); 
 
@@ -90,6 +92,8 @@ public class CommandMixin {
     conn.setRequestMethod("DELETE");
     conn.setRequestProperty( "Content-Type", "application/json" );
     conn.setRequestProperty( "Authorization", "bearer " + this.botAPIKey);
+    conn.setConnectTimeout(3000);
+    conn.setReadTimeout(30000);
     
     InputStream is = conn.getInputStream(); 
 
