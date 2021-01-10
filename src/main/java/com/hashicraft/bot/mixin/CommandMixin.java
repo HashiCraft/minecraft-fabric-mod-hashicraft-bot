@@ -85,14 +85,15 @@ public class CommandMixin {
           if (this.activeBot == "") { 
             return;
           }
-
+              
           System.out.println("bot_kill");
-            try {
-              killCommand(this.activeBot);
-              this.activeBot = "";
-            } catch (IOException e) {
-              e.printStackTrace();
-            }
+          this.activeBot = "";
+
+          try {
+            killCommand(this.activeBot);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
         });
         
         return 1;
