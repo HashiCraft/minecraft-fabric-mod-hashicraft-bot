@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import static net.minecraft.server.command.CommandManager.literal;
 import org.spongepowered.asm.mixin.Final;
@@ -26,6 +27,7 @@ public class CommandMixin {
   private CommandDispatcher<ServerCommandSource> dispatcher;
 
   private String botlocation = System.getenv("BOT_ADDRESS");
+  private String botAPIKey = System.getenv("BOT_API_KEY");
 
   @Inject(method = "<init>", at = @At("RETURN"))
   private void onRegister(CommandManager.RegistrationEnvironment arg, CallbackInfo ci) {
@@ -35,8 +37,17 @@ public class CommandMixin {
       this.botlocation = "http://localhost:3000";
     }
 
-    this.dispatcher.register(literal("hashicraft")
-        .then(literal("bot_start").executes(context -> {
+    this.dispatcher.register(
+        literal("hashicraft")
+        .then(literal("bot")
+        .then(startArgs())
+        .then(killArgs())
+        )
+      );
+  }
+
+  private LiteralArgumentBuilder<ServerCommandSource> startArgs() {
+    return literal("start").executes(context -> {
           System.out.println("bot_start");
           try {
             startCommand();
@@ -44,8 +55,11 @@ public class CommandMixin {
             e.printStackTrace();
           }
           return 1;
-        }))
-        .then(literal("bot_kill").executes(context -> {
+        });
+  }
+  
+  private LiteralArgumentBuilder<ServerCommandSource> killArgs() {
+    return literal("kill").executes(context -> {
           System.out.println("bot_kill");
             try {
               killCommand();
@@ -53,8 +67,7 @@ public class CommandMixin {
               e.printStackTrace();
             }
           return 1;
-        }))
-      );
+        });
   }
 
   private void startCommand() throws IOException {
@@ -63,6 +76,7 @@ public class CommandMixin {
     conn.setDoOutput(true);
     conn.setRequestMethod("POST");
     conn.setRequestProperty( "Content-Type", "application/json" );
+    conn.setRequestProperty( "Authorization", "bearer " + this.botAPIKey);
     
     InputStream is = conn.getInputStream(); 
 
@@ -75,6 +89,7 @@ public class CommandMixin {
     conn.setDoOutput(true);
     conn.setRequestMethod("DELETE");
     conn.setRequestProperty( "Content-Type", "application/json" );
+    conn.setRequestProperty( "Authorization", "bearer " + this.botAPIKey);
     
     InputStream is = conn.getInputStream(); 
 
