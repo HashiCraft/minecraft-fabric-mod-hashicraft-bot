@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.CompletableFuture;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -48,26 +49,32 @@ public class CommandMixin {
 
   private LiteralArgumentBuilder<ServerCommandSource> startArgs() {
     return literal("start").executes(context -> {
+      CompletableFuture.runAsync(() -> {
           System.out.println("bot_start");
           try {
             startCommand();
           } catch (IOException e) {
             e.printStackTrace();
           }
-          return 1;
-        });
+      });
+
+      return 1;
+    });
   }
   
   private LiteralArgumentBuilder<ServerCommandSource> killArgs() {
     return literal("kill").executes(context -> {
+      CompletableFuture.runAsync(() -> {
           System.out.println("bot_kill");
             try {
               killCommand();
             } catch (IOException e) {
               e.printStackTrace();
             }
-          return 1;
         });
+        
+        return 1;
+      });
   }
 
   private void startCommand() throws IOException {
