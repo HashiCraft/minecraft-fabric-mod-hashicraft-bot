@@ -83,14 +83,18 @@ public class CommandMixin {
     return literal("kill").executes(context -> {
       CompletableFuture.runAsync(() -> {
           if (this.activeBot == "") { 
+            context.getSource().sendError(new LiteralText(
+                  "There are no bots running on this server"
+                  ));
             return;
           }
               
-          System.out.println("bot_kill");
+          String id = this.activeBot;
+          System.out.println("bot_kill: " + id);
           this.activeBot = "";
 
           try {
-            killCommand(this.activeBot);
+            killCommand(id);
           } catch (IOException e) {
             e.printStackTrace();
           }
