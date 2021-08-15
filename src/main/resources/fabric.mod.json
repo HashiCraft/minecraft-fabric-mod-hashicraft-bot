@@ -3,14 +3,15 @@
   "id": "modid",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "HashiCraft Bot",
+  "description": "Serverside mod for interacting with the HashiCraft Bot.",
   "authors": [
-    "Me!"
+    "Nic Jackson",
+    "Erik Veld"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://hashicraft.com/",
+    "sources": "https://github.com/hashicraft/minecraft-fabric-mod-hashicraft-bot"
   },
 
   "license": "CC0-1.0",
@@ -27,10 +28,13 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.7.4",
-    "minecraft": "1.16.x"
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
   },
-  "suggests": {
+
+ "suggests": {
     "another-mod": "*"
   }
 }
